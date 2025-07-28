@@ -77,10 +77,8 @@ public class SimpleTreeTest {
         assertTrue (ch10.Children == null);
 
         myTree.DeleteNode(ch4);
-        assertTrue (ch2.Children.size() == 3);
+        assertTrue (ch2.Children.size() == 1);
         assertTrue (ch2.Children.get(0) == ch5);
-        assertTrue (ch2.Children.get(1) == ch9);
-        assertTrue (ch2.Children.get(2) == ch8);
 
         myTree.DeleteNode(myTree.Root);
         assertTrue ( myTree.Root == null);
@@ -126,10 +124,15 @@ public class SimpleTreeTest {
         assertTrue (cnt == 1);
 
         int leafCount = myTree.LeafCount();
-        assertTrue (leafCount == 0);
+        assertTrue (leafCount == 1);
 
         myTree.AddChild(myRoot, ch2);
+        leafCount = myTree.LeafCount();
+        assertTrue (leafCount == 1);
         myTree.AddChild(myRoot, ch3);
+        leafCount = myTree.LeafCount();
+        assertTrue (leafCount == 2);
+
         myTree.AddChild(ch2, ch4);
         myTree.AddChild(ch2, ch5);
 
@@ -177,6 +180,58 @@ public class SimpleTreeTest {
 
         cnt = myTree.Count();
         assertTrue (cnt == 13);
+
+    }
+
+    @Test
+    public void testMoveNode() {
+
+        myTree.AddChild(myRoot, ch2);
+        myTree.AddChild(myRoot, ch3);
+
+        myTree.AddChild(ch2, ch4);
+        myTree.AddChild(ch2, ch5);
+
+        myTree.AddChild(ch4, ch8);
+        myTree.AddChild(ch4, ch9);
+
+        myTree.AddChild(ch3, ch6);
+        myTree.AddChild(ch3, ch7);
+
+        myTree.AddChild(ch5, ch10);
+        myTree.AddChild(ch10, ch11);
+
+        myTree.MoveNode( ch5, ch9);
+
+        int cnt = myTree.Count();
+        assertTrue (cnt == 11);
+        assertTrue (ch2.Children.size() == 1);
+        assertTrue (ch2.Children.get(0) == ch4);
+
+        assertTrue (ch9.Children.get(0).NodeValue == 5);
+        assertTrue (ch9.Children.size() == 1);
+        assertTrue (ch9.Children.get(0) == ch5);
+        assertTrue (ch5.Children.get(0) == ch10);
+        assertTrue (ch10.Children.get(0) == ch11);
+
+        myTree.MoveNode( ch2, ch3);
+        cnt = myTree.Count();
+        assertTrue (cnt == 11);
+
+        assertTrue (myTree.Root.Children.size() == 1);
+        assertTrue (myTree.Root.Children.get(0) == ch3);
+
+        assertTrue (ch3.Children.size() == 3);
+        assertTrue (ch3.Children.get(0) == ch6);
+        assertTrue (ch3.Children.get(1) == ch7);
+        assertTrue (ch3.Children.get(2) == ch2);
+
+        assertTrue (ch2.Children.size() == 1);
+        assertTrue (ch4.Children.size() == 2);
+        assertTrue (ch9.Children.size() == 1);
+
+
+
 
     }
 }
