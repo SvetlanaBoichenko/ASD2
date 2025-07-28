@@ -159,14 +159,12 @@ class SimpleTree<T>
 
     public int LeafCount()
     { 
-        if (this.Root.Children == null)
-            return 0;
-
         int LeafCount = 0;
         List<SimpleTreeNode<T>>  nodeList = GetAllNodes();
 
         for (int i = 0; i < nodeList.size(); i++) {
             SimpleTreeNode<T> curNode = nodeList.get(i);
+            
             if (curNode.Children == null)
                 LeafCount++;
         }
