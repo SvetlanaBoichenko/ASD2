@@ -38,6 +38,7 @@ class SimpleTree<T>
     }
 
 //----------------------------------------------------------------------------------------
+  
     public void DeleteNode(SimpleTreeNode<T> NodeToDelete)
     { 
         if (NodeToDelete == null)
@@ -48,29 +49,16 @@ class SimpleTree<T>
             this.Root = null;
             return;
         }
+   
+        NodeToDelete.Parent.Children.remove (NodeToDelete);
+    
+        if (NodeToDelete.Parent.Children.isEmpty())
+            NodeToDelete.Parent.Children = null;
 
-        if (NodeToDelete.Parent == null) {
-            throw new NullPointerException  ("\n Обращение к нулевому параметру \n");
-        }
-
-        if  (NodeToDelete.Children == null) {
-            SimpleTreeNode<T> nodeToDelParent = NodeToDelete.Parent;
-            nodeToDelParent.Children.remove (NodeToDelete);
-
-            if (nodeToDelParent.Children.isEmpty())
-                 nodeToDelParent.Children = null;
-            return;
-        }
-
-        for (int i = 0; i < NodeToDelete.Children.size(); i++){
-            SimpleTreeNode<T> childNode = NodeToDelete.Children.get(i);
-            childNode.Parent = NodeToDelete.Parent;
-        }
-        NodeToDelete.Parent.Children.addAll(NodeToDelete.Children);
-        NodeToDelete.Parent.Children.remove(NodeToDelete);
     }
 
 //----------------------------------------------------------------------------------------
+  
     public List<SimpleTreeNode<T>> GetAllNodes()
     {       
         List<SimpleTreeNode<T>> nodeList = new LinkedList<SimpleTreeNode<T>>();
@@ -102,6 +90,7 @@ class SimpleTree<T>
     }
 
 //--------------------------------------------------------------------------------------
+   
     public List<SimpleTreeNode<T>> FindNodesByValue (T val)
     {    
         List<SimpleTreeNode<T>>  resultValList = new LinkedList<SimpleTreeNode<T>>();
@@ -137,10 +126,14 @@ class SimpleTree<T>
     }
 
 //--------------------------------------------------------------------------------
+  
     public void MoveNode(SimpleTreeNode<T> OriginalNode, SimpleTreeNode<T> NewParent)
     {  
         if (NewParent == null || OriginalNode == null)
             return;
+
+        SimpleTreeNode<T> oldParent = OriginalNode.Parent;
+        oldParent.Children.remove(OriginalNode);
 
         if (NewParent.Children == null) {
             NewParent.Children = new LinkedList <SimpleTreeNode<T>> ();
@@ -148,6 +141,7 @@ class SimpleTree<T>
         NewParent.Children.add (OriginalNode);
         OriginalNode.Parent = NewParent;
     }
+    
 //---------------------------------------------------------------------
 
     public int Count()
