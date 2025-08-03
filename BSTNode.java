@@ -20,7 +20,6 @@ public class BSTNode<T>
 
  class BSTFind<T>
 {
-    
     public BSTNode<T> Node;
 
     public boolean NodeHasKey;
@@ -79,8 +78,8 @@ class BST<T>
     }
    //=====================================================================
 
-    public boolean AddKeyValue(int key, T val) {
-        
+    public boolean AddKeyValue(int key, T val) 
+    {
         BSTFind<T> bstObject = FindNodeByKey(key);
 
         if (bstObject.NodeHasKey == true) {
@@ -117,18 +116,19 @@ class BST<T>
     }
     //======================================================================
     
-    final int ONE_LEFT_CHILD = 1;
+     final int ONE_LEFT_CHILD = 1;
      final int ONE_RIGHT_CHILD = 2;
      final int LEFT_RIGHT_CHILD = 3;
      final int IM_NULL_NODE = -1;
      final int NO_CHILD = 0;
 
-    final int IM_LEFT_CHILD = 1;
-    final int IM_RIGHT_CHILD = 2;
-    final int IM_ROOT = 3;
+     final int IM_LEFT_CHILD = 1;
+     final int IM_RIGHT_CHILD = 2;
+     final int IM_ROOT = 3;
 
 
-    public int NodeChildInfo (BSTNode<T> node) {
+    public int NodeChildInfo (BSTNode<T> node) 
+    {
         if (node == null) 
             return IM_NULL_NODE;
         
@@ -168,7 +168,8 @@ class BST<T>
 
 //===========================================================================
 
-    public  boolean DeleteOneLineNode( BSTNode<T> del_node) {
+    public  boolean DeleteOneLineNode( BSTNode<T> del_node) 
+    {
         int childs_type = NodeChildInfo (del_node);
 
         if (childs_type == LEFT_RIGHT_CHILD) {
@@ -214,6 +215,8 @@ class BST<T>
         return true;
     }
 
+    //--------------------------------------------------------------------------
+    
     public boolean DeleteNodeByKey(int key)
     {
         BSTFind<T> findNode = this.FindNodeByKey(key);
@@ -232,30 +235,35 @@ class BST<T>
             this.DeleteOneLineNode (minLeft);
             return true;
         }
-        return true; //
+        return true;  //
     }
 
-    public int Count()
+   //------------------------------------------------------------------------
+    
+    public int Count() 
     {
-       return CountNodes (this.Root, 1);
-
+       return CountNodes (this.Root, 1); 
     }
 
-    int CountNodes (BSTNode<T> node, int n) {
+   
+    int CountNodes (BSTNode<T> node, int n) 
+    {
         if (node == null)
-            return n;
+            return 0;
 
         BSTNode<T> tmpnode1 = null;
         BSTNode<T> tmpnode2 = null;
 
         if (node.LeftChild != null) {
             tmpnode1 = node.LeftChild;
-          n = CountNodes(tmpnode1, n+1);
+            
+            n = CountNodes (tmpnode1, n+1);
         }
+        
         if (node.RightChild != null) {
             tmpnode2 = node.RightChild;
 
-          n = CountNodes(tmpnode2, n+1);
+            n = CountNodes (tmpnode2, n+1);
         }
 
         return n;
