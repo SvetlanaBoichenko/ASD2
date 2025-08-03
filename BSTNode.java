@@ -1,10 +1,10 @@
 public class BSTNode<T>
 {
-    public int NodeKey; // ключ узла
-    public T NodeValue; // значение в узле
-    public BSTNode<T> Parent; // родитель или null для корня
-    public BSTNode<T> LeftChild; // левый потомок
-    public BSTNode<T> RightChild; // правый потомок
+    public int NodeKey; // 
+    public T NodeValue; // 
+    public BSTNode<T> Parent; // 
+    public BSTNode<T> LeftChild; // 
+    public BSTNode<T> RightChild; //
 
     public BSTNode(int key, T val, BSTNode<T> parent)
     {
@@ -16,30 +16,34 @@ public class BSTNode<T>
     }
 }
 
-// промежуточный результат поиска
+//------------------------------------
+
  class BSTFind<T>
 {
-    // null если в дереве вообще нет узлов
+    
     public BSTNode<T> Node;
 
-    // true если узел найден
     public boolean NodeHasKey;
 
-    // true, если родительскому узлу надо добавить новый левым
     public boolean ToLeft;
 
     public BSTFind() { Node = null; }
 }
 
- class BST<T>
+//------------------------------------------
+
+class BST<T>
 {
-    BSTNode<T> Root; // корень дерева, или null
+    BSTNode<T> Root; // 
 
     public BST(BSTNode<T> node)
     {
         Root = node;
     }
+
+
 //=====================================================================
+   
     public BSTFind<T> FindNodeByKey(int key)
     {
         BSTNode curnode = this.Root;
@@ -75,7 +79,8 @@ public class BSTNode<T>
     }
    //=====================================================================
 
-    public boolean AddKeyValue(int key, T val) {// добавляем ключ-значение в дерево
+    public boolean AddKeyValue(int key, T val) {
+        
         BSTFind<T> bstObject = FindNodeByKey(key);
 
         if (bstObject.NodeHasKey == true) {
@@ -87,6 +92,7 @@ public class BSTNode<T>
         }
         BSTNode<T> parent = bstObject.Node;
         BSTNode<T> nodeToAdd = new BSTNode<T>(key, val, parent);
+        
         if (bstObject.ToLeft == true)
             parent.LeftChild = nodeToAdd;
         else
@@ -97,7 +103,7 @@ public class BSTNode<T>
 //================================================================
 
     public BSTNode<T> FinMinMax(BSTNode<T> FromNode, boolean FindMax)
-    { // ищем максимальный/минимальный ключ в поддереве
+    { 
         BSTNode<T> prevNode = FromNode;
 
        while (FromNode != null) {
@@ -110,7 +116,8 @@ public class BSTNode<T>
        return prevNode;
     }
     //======================================================================
-     final int ONE_LEFT_CHILD = 1;
+    
+    final int ONE_LEFT_CHILD = 1;
      final int ONE_RIGHT_CHILD = 2;
      final int LEFT_RIGHT_CHILD = 3;
      final int IM_NULL_NODE = -1;
@@ -159,7 +166,7 @@ public class BSTNode<T>
         return  ONE_RIGHT_CHILD;
     }
 
-
+//===========================================================================
 
     public  boolean DeleteOneLineNode( BSTNode<T> del_node) {
         int childs_type = NodeChildInfo (del_node);
@@ -189,7 +196,7 @@ public class BSTNode<T>
             del_node = null;
             return  true;
         }
-        // а я кто?
+        // 
         if (whoIM (del_node)== IM_LEFT_CHILD) {
             del_node.Parent.LeftChild= null;
             del_node.Parent.LeftChild = del_node_child;
@@ -197,7 +204,7 @@ public class BSTNode<T>
             return true;
         }
 
-        if (whoIM(del_node)== IM_RIGHT_CHILD) {
+        if (whoIM (del_node)== IM_RIGHT_CHILD) {
             del_node.Parent.RightChild = null;
             del_node.Parent.RightChild = del_node_child;
             return true;
@@ -208,16 +215,17 @@ public class BSTNode<T>
     }
 
     public boolean DeleteNodeByKey(int key)
-    {// удаляем узел по ключу
+    {
         BSTFind<T> findNode = this.FindNodeByKey(key);
         if (findNode.NodeHasKey == false) {
             return false;
         }
 
-
         BSTNode<T> del_node = findNode.Node;
+       
         if (this.DeleteOneLineNode (del_node) == false) {
             BSTNode<T>  minLeft = this.FinMinMax(del_node.RightChild, false);
+         
             del_node.NodeKey = minLeft.NodeKey;
             del_node.NodeValue = minLeft.NodeValue;
 
@@ -254,10 +262,9 @@ public class BSTNode<T>
     }
 
 
-    public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
 
-    }
-}
+    
+} 
+
+
+
