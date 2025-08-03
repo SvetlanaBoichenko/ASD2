@@ -105,7 +105,7 @@ class BST<T>
     { 
         BSTNode<T> prevNode = FromNode;
 
-       while (FromNode != null) {
+        while (FromNode != null) {
            prevNode = FromNode;
            if (FindMax)
                FromNode = FromNode.RightChild;
@@ -144,7 +144,8 @@ class BST<T>
        return  ONE_RIGHT_CHILD;
     }
 
-    public int whoIM (BSTNode<T> node) {
+    public int whoIM (BSTNode<T> node) 
+    {
         if (node.Parent == null)
             return IM_ROOT;
 
