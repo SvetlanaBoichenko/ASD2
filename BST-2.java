@@ -69,7 +69,7 @@ class BST<T>
 //  сложность O(N) и пространственная и временная 
 //==========================================================   
 
-    List<Integer> waysofLen (BSTNode2 node, int len, int n) {
+    List <Integer> waysofLen (BSTNode2 node, int len, int n) {
         List<Integer> sList = new ArrayList<>();
 
         if (node == null) {
@@ -125,7 +125,7 @@ class BST<T>
  /    сложность O(N) и пространственная и временная
 //=============================================================================
     
-   boolean CompareTreeParts () 
+   public boolean CompareTreeParts () 
     {
        if (this.Root == null)
            return false;
