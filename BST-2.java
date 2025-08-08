@@ -120,5 +120,35 @@ class BST<T>
         return sList;
     }
 //=============================================================================
+//    Задание 2   Задача 4
+//    Метод проверки, симметрично ли дерево относительно своего корня.
+ /    сложность O(N) и пространственная и временная
+//=============================================================================
+    
+   boolean CompareTreeParts () 
+    {
+       if (this.Root == null)
+           return false;
 
+        return CheckSymetricNodes (this.Root.LeftChild, this.Root.RightChild);
+   }
+
+    boolean CheckSymetricNodes (BSTNode2<T> node1, BSTNode2<T> node2)
+    {
+        if (node1 == null && node2 == null)
+            return true;
+
+        if (node1 == null && node2 != null)
+            return false;
+
+        if (node2 == null && node1 != null)
+            return false;
+        
+        return CheckSymetricNodes(node1.LeftChild, node2.LeftChild) &&
+                CheckSymetricNodes(node1.RightChild, node2.RightChild);
+    }
+
+
+
+    
 } 
