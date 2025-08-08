@@ -148,7 +148,8 @@ class BST<T>
                 CheckSymetricNodes(node1.RightChild, node2.RightChild);
     }
 
-
-
     
 } 
+
+
+
