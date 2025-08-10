@@ -269,18 +269,44 @@ public class BST<T>
     }
 
     //=========================
-    public ArrayList<BSTNode> walk_nodes (BSTNode curnode)
+    public ArrayList<BSTNode> walk_nodes_in (BSTNode curnode)
     {
         ArrayList<BSTNode> outList = new ArrayList();
         if (curnode == null) //null
             return outList;
 
-        outList.add(curnode);
 
-        outList.addAll(walk_nodes(curnode.LeftChild));
-        outList.addAll(walk_nodes(curnode.RightChild));
+       outList.addAll(walk_nodes_in(curnode.LeftChild));
+       outList.add(curnode);
+       outList.addAll(walk_nodes_in(curnode.RightChild));
         return outList;
     }
+
+    public ArrayList<BSTNode> walk_nodes_pre (BSTNode root)
+    {
+        ArrayList<BSTNode> outList = new ArrayList();
+        if (root == null) //null
+            return outList;
+        outList.add(root);
+        outList.addAll(walk_nodes_pre(root.LeftChild));
+        outList.addAll(walk_nodes_pre(root.RightChild));
+
+        return outList;
+    }
+
+    public ArrayList<BSTNode> walk_nodes_post (BSTNode root)
+    {
+        ArrayList<BSTNode> outList = new ArrayList();
+        if (root == null) //null
+            return outList;
+
+        outList.addAll(walk_nodes_post(root.LeftChild));
+        outList.addAll(walk_nodes_post(root.RightChild));
+        outList.add(root);
+
+        return outList;
+    }
+
 
     public ArrayList<BSTNode> DeepAllNodes (int walk_type)
     {
@@ -294,23 +320,16 @@ public class BST<T>
             return outList;
 
         if (walk_type == 2) {       // pre
-            outList.add(this.Root);
-        }
-
-        if (firstnode.LeftChild != null) {
-            outList.addAll(walk_nodes(firstnode.LeftChild));
+            return walk_nodes_pre (this.Root);
         }
 
         if (walk_type == 0) {       // in
-            outList.add(this.Root);
+            return walk_nodes_in (this.Root);
         }
 
-        if (firstnode.RightChild != null) {
-            outList.addAll(walk_nodes(firstnode.RightChild));
-        }
 
         if (walk_type == 1) {       // post
-            outList.add(this.Root);
+            return walk_nodes_post (this.Root);
         }
         return outList;
     }
@@ -340,10 +359,14 @@ public class BST<T>
         }
         return nodeList;
 
-    }
- 
-  
+    } 
+
+    
 } 
+
+
+
+
 
 
 
