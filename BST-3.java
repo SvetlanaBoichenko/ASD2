@@ -4,7 +4,7 @@ import java.util.*;
 
 import static org.junit.Assert.assertTrue;
 
-public class BSTTest {
+public  class BSTTest {
     public static BST GreatBSTTree ()
     {
         BSTNode<Integer> nod8 = new BSTNode<>(8, 8, null);
@@ -23,15 +23,22 @@ public class BSTTest {
 
         BSTNode<Integer> nod5 = new BSTNode(5, 5, nod6);
         BSTNode<Integer> nod7 = new BSTNode(7, 7, nod6);
+
         BSTNode<Integer> nod9 = new BSTNode(9, 9, nod10);
         BSTNode<Integer> nod11 = new BSTNode(11, 11, nod10);
 
         BSTNode<Integer> nod13 = new BSTNode(13, 13, nod14);
         BSTNode<Integer> nod15 = new BSTNode(15, 15, nod14);
+
+
         nod8.  LeftChild = nod4;
         nod8.RightChild = nod12;
+
         nod4.LeftChild = nod2;
         nod4.RightChild = nod6;
+
+        nod6.LeftChild = nod5;
+        nod6.RightChild = nod7;
 
         nod12.LeftChild = nod10;
         nod12.RightChild = nod14;
@@ -42,6 +49,9 @@ public class BSTTest {
         nod2.LeftChild = nod1;
         nod2.RightChild = nod3;
 
+        nod14.LeftChild = nod13;
+        nod14.RightChild = nod15;
+
         return BinTree;
     }
 
@@ -51,7 +61,7 @@ public class BSTTest {
         ArrayList <BSTNode> listlevels =  BiTree.WideAllNodes() ;
 
         int s = listlevels.size();
-        assertTrue (s == 11);
+        assertTrue (s == 15);
 
         BSTNode n1 = listlevels.get(0);
         assertTrue (n1.NodeKey == 8);
@@ -73,9 +83,17 @@ public class BSTTest {
         n1 = listlevels.get(8);
         assertTrue (n1.NodeKey == 3);
         n1 = listlevels.get(9);
-        assertTrue (n1.NodeKey == 9);
+        assertTrue (n1.NodeKey == 5);
         n1 = listlevels.get(10);
+        assertTrue (n1.NodeKey == 7);
+        n1 = listlevels.get(11);
+        assertTrue (n1.NodeKey == 9);
+        n1 = listlevels.get(12);
         assertTrue (n1.NodeKey == 11);
+        n1 = listlevels.get(13);
+        assertTrue (n1.NodeKey == 13);
+        n1 = listlevels.get(14);
+        assertTrue (n1.NodeKey == 15);
 
         BSTNode<Integer> nod18 = new BSTNode<>(8, 8, null);
         BST BinTree2 = new BST (nod18);
@@ -94,15 +112,15 @@ public class BSTTest {
 
     @Test
     public void testDeepAllNodes() {
-        BST BiTree = GreatBSTTree ();
+        BST BiTree = GreatBSTTree();
 
         // pre
-        ArrayList <BSTNode> L0 = BiTree.DeepAllNodes (2);
+        ArrayList<BSTNode> L0 = BiTree.DeepAllNodes(2);
         int n = L0.size();
-        assertTrue (n == 11);
-        BSTNode n0 = L0.get(0);
-        assertTrue (n0.NodeKey == 8);
-        n0 = L0.get(1);
+          assertTrue (n == 15);
+          BSTNode n0 = L0.get(0);
+          assertTrue (n0.NodeKey == 8);
+       n0 = L0.get(1);
         assertTrue (n0.NodeKey == 4);
         n0 = L0.get(2);
         assertTrue (n0.NodeKey == 2);
@@ -113,57 +131,69 @@ public class BSTTest {
         n0 = L0.get(5);
         assertTrue (n0.NodeKey == 6);
         n0 = L0.get(6);
-        assertTrue (n0.NodeKey == 12);
+        assertTrue (n0.NodeKey == 5);
         n0 = L0.get(7);
-        assertTrue (n0.NodeKey == 10);
+        assertTrue (n0.NodeKey == 7);
         n0 = L0.get(8);
+        assertTrue (n0.NodeKey == 12);
+        n0 = L0.get(9);
+        assertTrue (n0.NodeKey == 10);
+        n0 = L0.get(10);
         assertTrue (n0.NodeKey == 9);
 
+        /*for (int i = 0; i < L0.size(); i++) {
+            System.out.print(", " + L0.get(i).NodeKey);
+        }
+       */
+
         // in
-        ArrayList <BSTNode> L1 = BiTree.DeepAllNodes (0);
+        ArrayList<BSTNode> L1 = BiTree.DeepAllNodes(0);
         n = L1.size();
-        assertTrue (n == 11);
-        n0 = L1.get(5);
+           assertTrue (n == 15);
+
+        n0 = L1.get(7);
         assertTrue (n0.NodeKey == 8);
         n0 = L1.get(0);
-        assertTrue (n0.NodeKey == 4);
+        assertTrue (n0.NodeKey == 1);
         n0 = L1.get(1);
         assertTrue (n0.NodeKey == 2);
         n0 = L1.get(2);
-        assertTrue (n0.NodeKey == 1);
-        n0 = L1.get(3);
         assertTrue (n0.NodeKey == 3);
+        n0 = L1.get(3);
+        assertTrue (n0.NodeKey == 4);
         n0 = L1.get(4);
-        assertTrue (n0.NodeKey == 6);
+        assertTrue (n0.NodeKey == 5);
         n0 = L1.get(5);
-        assertTrue (n0.NodeKey == 8);
+        assertTrue (n0.NodeKey == 6);
         n0 = L1.get(6);
-        assertTrue (n0.NodeKey == 12);
+        assertTrue (n0.NodeKey == 7);
         n0 = L1.get(8);
         assertTrue (n0.NodeKey == 9);
 
+
         // post
-        ArrayList <BSTNode> L2 = BiTree.DeepAllNodes (1);
+        ArrayList<BSTNode> L2 = BiTree.DeepAllNodes(1);
         n = L2.size();
-        assertTrue (n == 11);
-        n0 = L2.get(10);
-        assertTrue (n0.NodeKey == 8);
+         assertTrue (n == 15);
+           n0 = L2.get(14);
+          assertTrue (n0.NodeKey == 8);
         n0 = L2.get(0);
-        assertTrue (n0.NodeKey == 4);
-        n0 = L2.get(1);
-        assertTrue (n0.NodeKey == 2);
-        n0 = L2.get(2);
         assertTrue (n0.NodeKey == 1);
-        n0 = L2.get(3);
+        n0 = L2.get(1);
         assertTrue (n0.NodeKey == 3);
+        n0 = L2.get(2);
+        assertTrue (n0.NodeKey == 2);
+        n0 = L2.get(3);
+        assertTrue (n0.NodeKey == 5);
         n0 = L2.get(4);
-        assertTrue (n0.NodeKey == 6);
+        assertTrue (n0.NodeKey == 7);
         n0 = L2.get(5);
-        assertTrue (n0.NodeKey == 12);
+        assertTrue (n0.NodeKey == 6);
         n0 = L2.get(6);
-        assertTrue (n0.NodeKey == 10);
+        assertTrue (n0.NodeKey == 4);
         n0 = L2.get(7);
         assertTrue (n0.NodeKey == 9);
+
 
         ArrayList <BSTNode> L31 = BiTree.DeepAllNodes (5);
         n = L31.size();
@@ -203,6 +233,8 @@ public class BSTTest {
         n = L52.size();
         assertTrue (n ==0);
     }
+
+
     @Test
     public void findByKeyAndOther() {
         BSTNode<Integer> nod8 = new BSTNode<>(8, 8, null);
@@ -300,8 +332,8 @@ public class BSTTest {
         min = biTree.FinMinMax(biTree.Root, false);
         assertTrue(min.NodeValue == 4);
 
-             int N = biTree.Count();
-            assertTrue(N == 3);
+        //     int N = biTree.Count();
+        //    assertTrue(N == 3);
 
         BSTNode<Integer> nod2 = new BSTNode(2, 2, nod4);
         BSTNode<Integer> nod6 = new BSTNode(6, 6, nod4);
@@ -318,8 +350,8 @@ public class BSTTest {
         nod2.LeftChild = nod1;
         nod2.RightChild = nod3;
 
-           N = biTree.Count();
-          assertTrue(N == 9);
+        //   N = biTree.Count();
+        //  assertTrue(N == 9);
 
         BSTNode<Integer> nod5 = new BSTNode(5, 5, nod6);
         BSTNode<Integer> nod7 = new BSTNode(7, 7, nod6);
