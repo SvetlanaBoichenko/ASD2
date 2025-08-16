@@ -8,7 +8,7 @@ public  class aBSTTest {
 
     @Test
     public void tesFindKeyIndex() {
-        aBST arrTree = new aBST(4);
+        aBST arrTree = new aBST (3);
         int treeLen = arrTree.Tree.length;
         assertTrue (treeLen == 15);
         assertEquals  ((int)(arrTree.FindKeyIndex(119)), 0);
@@ -60,7 +60,7 @@ public  class aBSTTest {
     @Test
     public void TestAddKey() {
 
-        aBST arrTree = new aBST(4);
+        aBST arrTree = new aBST (3);
         arrTree.AddKey(8);
 
         assertTrue (arrTree.Tree[0] == 8);
@@ -116,3 +116,4 @@ public  class aBSTTest {
     }
 
 }
+
