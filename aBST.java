@@ -1,6 +1,6 @@
 
 public class aBST {
-    public Integer Tree[]; // 
+    public Integer Tree[]; //  
 
     public aBST(int depth) {
         int tree_size = (int)Math.pow(2,depth+1) -1;
