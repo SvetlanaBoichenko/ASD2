@@ -78,10 +78,11 @@ class BST<T>
 
         if (n >= len ||  isLeaf(node)) {
             sList.add(n);    // добавляю уровни==n(например 3) получаю массив 3,3,3,3                             
-            return sList;
+            return sList;  // Выход и сумма = сумма+.. последняя сумма
         }
         // левая а потом правая
-        int m = n+1; // Здесь, по ходу можно сумму накапливать.. надо посмотреть
+        int m = n+1; 
+                     // //Где то здесь, по ходу можно сумму накапливать.. надо смотреть
         sList.addAll(waysofLen (node.LeftChild, len, m));
         sList.addAll(waysofLen (node.RightChild, len, m));
         return sList;
