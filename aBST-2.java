@@ -64,7 +64,6 @@ public class BST<T>
     }
 
   
-
 //=======================================================================
 //  Задание 3 задача 2
 //  Метод который находит уровень с максимальной суммой значений узлов
@@ -100,12 +99,7 @@ public class BST<T>
                     q.add(curnode.RightChild);
                 }
             }
-            System.out.print(" S =  " +  S);
-               if (S > Smax)
-                   Smax = S;
-               S = 0;
+         
            }
-
-        System.out.print("\n Smax =  " +  + Smax);
         return Smax;
     }
