@@ -1,8 +1,10 @@
 import java.util.Arrays;
 
-public class AlgorithmsDataStructures2 {
+public class AlgorithmsDataStructures2 
+{
 
-    public static int[] GenerateBBSTArray(int[] a) {
+    public static int[] GenerateBBSTArray(int[] a) 
+    {
         int len = a.length;
        
         Arrays.sort(a);  //Sort
@@ -10,7 +12,6 @@ public class AlgorithmsDataStructures2 {
         int b[] = new int[len];
 
         return makeBSTArray(0, len - 1, 0, a, b);
-
     }
 
     public static  int [] makeBSTArray (int left, int right, int pos, int[] A, int[] B )
