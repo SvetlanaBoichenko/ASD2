@@ -43,17 +43,16 @@ class BalancedBST
 
     public  BSTNode makeBSTArray (int left, int right, int pos, int[] A,  BSTNode parent, int level )
     {
-        if (left > right)
-            return null;
-      
+       
         int mid = (int)((left+right) / 2 );
         int val = A [mid];
         //  node
         BSTNode new_nod = new BSTNode (val, parent);
         new_nod.Level = level;  //(int)(Math.log(node_count) / Math.log(2));;
       
-        new_nod.LeftChild = makeBSTArray (left, mid -1, pos*2+1, A, new_nod,level+1); //B,
-        new_nod.RightChild = makeBSTArray (mid +1, right, pos*2+2, A, new_nod, level+1);
+       if (right  > left) {
+            new_nod.LeftChild = makeBSTArray(left, mid - 1, A, new_nod, level + 1); //
+            new_nod.RightChild = makeBSTArray(mid + 1, right, A, new_nod, level + 1);
 
         return new_nod;
     }
