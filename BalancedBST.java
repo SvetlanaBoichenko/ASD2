@@ -34,12 +34,12 @@ class BalancedBST
         // 1. Sort
         Arrays.sort(a);
         // 2. root
-        this.Root = makeBSTArray (null,0, len-1,  a,   0); //
+        this.Root = makeBSTArray (0, len-1,  a,  null, 0); //
     }
 
 
 
-    public  BSTNode makeBSTArray (int left, int right, int[] A,  BSTNode parent, int level )
+    public  BSTNode makeBSTArray ( int left, int right, int[] A, BSTNode parent, int level )
     {
 
         int mid = (int)((left+right) / 2 );
@@ -71,7 +71,7 @@ class BalancedBST
         if (parent_node == null) {
             return -1;
         }
-    // necesita extacto left and right
+        // necesita extacto left and right
         int left_level = difLevels(parent_node.LeftChild);
         int right_level = difLevels(parent_node.RightChild);
 
@@ -82,7 +82,6 @@ class BalancedBST
 
 
 }
-
 
 
 
