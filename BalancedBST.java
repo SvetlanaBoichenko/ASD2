@@ -59,6 +59,9 @@ class BalancedBST
 
     public boolean IsBalanced(BSTNode root_node)
     {
+        if (root_node== this.Root)
+        return true;
+        
         int r = difLevels(root_node);
         if ( r < 2)
             return true; //
