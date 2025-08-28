@@ -26,18 +26,17 @@ class BalancedBST
         Root = null;
     }
 
+
     public void GenerateTree(int[] a)
     {
-
-        // 1. Sort
+        // len
         int len = a.length;
-        //Sort
+        // 1. Sort
         Arrays.sort(a);
-
-        BSTNode b[] = new BSTNode[len];
-        // 2. nodes
-        makeBSTArray (0, len-1,  a,  null, 0); //
+        // 2. root
+        this.Root = makeBSTArray (null,0, len-1,  a,   0); //
     }
+
 
 
     public  BSTNode makeBSTArray (int left, int right, int[] A,  BSTNode parent, int level )
