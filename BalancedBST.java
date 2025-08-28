@@ -52,7 +52,8 @@ class BalancedBST
       
        if (right  > left) {
             new_nod.LeftChild = makeBSTArray(left, mid - 1, A, new_nod, level + 1); //
-            new_nod.RightChild = makeBSTArray(mid + 1, right, A, new_nod, level + 1);
+            new_nod.RightChild = makeBSTArray(mid + 1, right, A, new_nod, level + 1); 
+       }
 
         return new_nod;
     }
