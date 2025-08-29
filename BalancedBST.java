@@ -38,7 +38,6 @@ class BalancedBST
     }
 
 
-
     public  BSTNode makeBSTArray ( int left, int right, int[] A, BSTNode parent, int level )
     {
 
@@ -56,35 +55,38 @@ class BalancedBST
         return new_nod;
     }
 
-
-    public boolean IsBalanced(BSTNode root_node)
-    {
-        if (root_node== this.Root)
-        return true;
-        
+   public boolean IsBalanced(BSTNode root_node) {
         int r = difLevels(root_node);
-        if ( r < 2)
+        if (r != -1)
             return true; //
 
         return false;
     }
 
-    public  int difLevels(BSTNode parent_node)
-    {
-        if (parent_node == null) {
+    public int difLevels (BSTNode cur_node) {
+        if (cur_node == null) {
+            return 0;
+        }
+
+        int leftSubLevel = difLevels(cur_node.LeftChild);
+        if (leftSubLevel == -1) return -1;   //no balance
+
+        int rightSubLevel = difLevels(cur_node.RightChild);
+        if (rightSubLevel == -1) return -1;  //no balance
+
+        // difLevel
+        if (Math.abs(rightSubLevel - leftSubLevel) > 1) {
             return -1;
         }
-        // necesita extacto left and right
-        int left_level = difLevels(parent_node.LeftChild);
-        int right_level = difLevels(parent_node.RightChild);
-
-        int ret = Math.abs(left_level - right_level);
-
-        return ret;
+        // Hight for comparar 2 hights
+        return (Math.max(rightSubLevel, leftSubLevel) + 1);
     }
 
-
+   
 }
+
+
+
 
 
 
