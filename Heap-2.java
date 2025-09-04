@@ -1,3 +1,8 @@
+//======================================================================================
+// Задание 5 задача 3*
+// 3.* Метод удаления узла из двоичного дерева, заданного в виде массива. 
+// строка 53
+// ====================================================================================
 
 import java.util.*;
 
@@ -12,11 +17,8 @@ public class AlgorithmsDataStructures3 {
         Arrays.sort(a);
         int len = a.length;
         int b[] = new int[len];
-     //  AlgorithmsDataStructures3 bbst3 = new AlgorithmsDataStructures3();
         this.count_nodes =len;// массив полный
-
         return makeBSTArray(0, len - 1, 0, a, b);
-
     }
 
     public static int [] makeBSTArray (int left, int right, int pos, int[] A, int[] B )
@@ -35,16 +37,7 @@ public class AlgorithmsDataStructures3 {
         makeBSTArray (mid +1, right, pos*2+2, A, B);
         return B;
     }
-
-    public int IndexMaxofLeftBranch (int b [], int left_index)
-    {
-        int index_left_max = 0;
-
-        for (int i = left_index; i < b.length; i = i*2 + 2) {
-            index_left_max = i; // Правые
-        }
-        return index_left_max;
-    }
+  
 
 //======================================================================================
 // Задание 5 задача 3*
@@ -52,6 +45,7 @@ public class AlgorithmsDataStructures3 {
 // Сложность O(logN)    
 // При решении руководствовалась рекомендациями к этой задаче, приведенными в задании 7
 // Сложнее всего оказалось тянуть цепочку всех потомков при удалении узла с одним потомком.
+// Ввела переменную count_nodes - число узлов (непустых) в массиве.
 // Не совсем понятно, когда точно делать балансировку, сделала когда число пустых узлов = числу
 //    листов для заданной глубины массива
 //=========================================================================================
@@ -102,7 +96,20 @@ public class AlgorithmsDataStructures3 {
         return RebalanceTreeArray (b);
     }
 
+//------------------------------------------------------------
+// Вспомогательная функция при удалении узла с двумя потомками - поиск узла для замены
+    
+    public int IndexMaxofLeftBranch (int b [], int left_index)
+    {
+        int index_left_max = 0;
 
+        for (int i = left_index; i < b.length; i = i*2 + 2) {
+            index_left_max = i; // Правые
+        }
+        return index_left_max;
+    }
+
+    //---------------------------------------------------------------
     int [] RebalanceTreeArray (int[] a ) {
         if (this.count_nodes > (int)a.length/2)
             return a;
@@ -120,12 +127,9 @@ public class AlgorithmsDataStructures3 {
         return GenerateBBSTArray(c);
     }
 
-    public static void main(String[] args) {
-        System.out.printf("Hello and welcome!");
-
-    }
-
-
 }
+
+
+
 
 
