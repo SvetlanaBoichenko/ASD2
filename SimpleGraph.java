@@ -2,7 +2,7 @@
 class Vertex
 {
     public int Value;
-    public Vertex(int val) //Объект- для массив значений
+    public Vertex(int val) //
     {
         Value = val;
     }
@@ -10,9 +10,9 @@ class Vertex
 
 public class SimpleGraph
 {
-    Vertex [] vertex;       // Массив вершин
-    int [][] m_adjacency;   // Матрица с вершинами и без
-    int max_vertex;         // Max колво вершин
+    Vertex [] vertex;       // vertex array
+    int [][] m_adjacency;   // matrix 
+    int max_vertex;         // max count of vertex
 
     public SimpleGraph(int size)
     {
@@ -25,7 +25,7 @@ public class SimpleGraph
     {
         for (int i = 0; i < this.max_vertex; i++) {
             if (this.vertex[i] == null){
-                Vertex v = new Vertex(value); //new Vertex weth value = v
+                Vertex v = new Vertex(value); //new Vertex with value = v
                 this.vertex[i] = v;
                 break;
             }
@@ -69,8 +69,8 @@ public class SimpleGraph
         }
     }
 
-    public static void main(String[] args) {
-        System.out.printf("Hello and welcome!");
-
-        }
+ 
 }
+
+
+
