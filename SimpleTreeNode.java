@@ -163,7 +163,8 @@ class SimpleTree<T>
         return LeafCount;
     }
 
-
+  //-------------------------------------------------------------
+    
     public List<SimpleTreeNode<T>> LeafList()
     {
         List<SimpleTreeNode<T>>  nodeList = GetAllNodes();
@@ -179,7 +180,7 @@ class SimpleTree<T>
         return leafLst;
     }
 
-    //-------------------------------------------------------------
+  
 
     public ArrayList<T> EvenTrees()
     {
