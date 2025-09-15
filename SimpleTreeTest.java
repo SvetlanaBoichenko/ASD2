@@ -21,7 +21,56 @@ public class SimpleTreeTest {
     SimpleTreeNode<Integer> ch10 = new SimpleTreeNode<Integer>(10, myRoot);
     SimpleTreeNode<Integer> ch11 = new SimpleTreeNode<Integer>(11, myRoot);
 
+@Test
+    public void testEvenTrees() {
+      myTree.AddChild(myRoot, ch2);
+      myTree.AddChild(myRoot, ch3);
+      myTree.AddChild(ch2, ch4);
+      myTree.AddChild(ch2, ch5);
+      myTree.AddChild(ch2, ch11);
+      myTree.AddChild(ch4, ch6);
 
+      ArrayList a = myTree.EvenTrees();
+
+      assertTrue((int)a.get(0) == 2);
+      assertTrue((int)a.get(1) == 4);
+
+      myTree.AddChild(ch4, ch7);
+      myTree.AddChild(ch4, ch8);
+      myTree.AddChild(ch4, ch9);
+      myTree.AddChild(ch4, ch10);
+
+      ArrayList b = myTree.EvenTrees();
+      assertTrue((int)b.get(0) == 2);
+      assertTrue((int)b.get(1) == 4);
+
+  }
+      @Test
+      public void testEvenTrees2() {
+      SimpleTreeNode<Integer> myRoot2 = new SimpleTreeNode(1, null);
+      SimpleTree<Integer> myTree2 = new SimpleTree<Integer>(myRoot2);
+      myTree2.AddChild(myRoot2, ch2);
+      myTree2.AddChild(ch2, ch3);
+      myTree2.AddChild(ch2, ch4);
+      myTree2.AddChild(ch2, ch5);
+      myTree2.AddChild(ch3, ch6);
+      ArrayList c = myTree2.EvenTrees();
+
+          assertTrue((int)c.get(0) == 2);
+          assertTrue((int)c.get(1) == 3);
+
+          SimpleTreeNode<Integer> myRoot3 = new SimpleTreeNode(1, null);
+          SimpleTree<Integer> myTree3 = new SimpleTree<Integer>(myRoot3);
+          ArrayList d = myTree3.EvenTrees();
+
+         assertEquals(d.size(), 0 );
+
+  }
+
+
+
+
+    
     @Test
     public void testAddChild() {
         myTree.Root = null;
@@ -235,3 +284,4 @@ public class SimpleTreeTest {
 
     }
 }
+
