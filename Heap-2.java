@@ -1,135 +1,192 @@
-//======================================================================================
-// Задание 5 задача 3*
-// 3.* Метод удаления узла из двоичного дерева, заданного в виде массива. 
-// строка 53
-// ====================================================================================
+// Дополнительные задачи  к заданию 7
+// Задача 4* строка 90
+// Задача 5* строка 132
+// Задача 6* - пока не решила(по разным причинам), попытаюсь перед окончанием курса,если можно
+//
+public class Heap
+{
+    public int [] HeapArray; //
+    int node_count;
 
-import java.util.*;
-
-public class AlgorithmsDataStructures3 {
-    static final int VALUE_NONE = -1;
-
-    public int count_nodes = 10;
-
-    public int[] GenerateBBSTArray(int[] a) {
-
-        //Sort
-        Arrays.sort(a);
-        int len = a.length;
-        int b[] = new int[len];
-        this.count_nodes =len;// массив полный
-        return makeBSTArray(0, len - 1, 0, a, b);
+    public Heap() {
+        HeapArray = null;
+        node_count = 0;
     }
 
-    public static int [] makeBSTArray (int left, int right, int pos, int[] A, int[] B )
+    public void MakeHeap(int[] a, int depth)
     {
-        if (left > right)
-            return B;
-
-        int mid = (int)((left+right) / 2 );
-        int val = A [mid];
-
-        if (pos > B.length-1)
-            return B;
-        B[pos] = val;
-
-        makeBSTArray (left, mid -1, pos*2+1, A, B);
-        makeBSTArray (mid +1, right, pos*2+2, A, B);
-        return B;
+        int len = (int) (Math.pow(2,(depth + 1) )- 1);
+        this.HeapArray = new int [len];
+        for (int i = 0; i < a.length; i++){
+            this.Add(a[i]);
+        }
     }
-  
+    public int GetMax() {  //return rais and rebuild hape
+        if (this.node_count == 0)
+            return -1;
 
-//======================================================================================
-// Задание 5 задача 3*
-// 3.* Метод удаления узла из двоичного дерева, заданного в виде массива. 
-// Сложность O(logN)    
-// При решении руководствовалась рекомендациями к этой задаче, приведенными в задании 7
-// Сложнее всего оказалось тянуть цепочку всех потомков при удалении узла с одним потомком.
-// Ввела переменную count_nodes - число узлов (непустых) в массиве.
-// Не совсем понятно, когда точно делать балансировку, сделала когда число пустых узлов = числу
-//    листов для заданной глубины массива
-//=========================================================================================
-  
-    public int[] delete_arr_node_val (int []b, int val) {   //1. найти индекс
-        int index = -1;
-        for (int i = 0; i < b.length; i++) {
-            if (b[i] == val) {
-                index = i;
+        int ret = this.HeapArray[0];
+        this.HeapArray[0] = this.HeapArray[this.node_count - 1];
+        this.HeapArray[this.node_count - 1] = -1;// -1 < 0 -> NO_VALUE
+
+        this.node_count = this.node_count - 1;
+        this.goDown();
+
+        return ret;
+    }
+
+    void goDown() {
+        int i = 0;      // начинаем сначала-и до листьев
+        int ind = 0;
+        while (i < this.HeapArray.length / 2) {         //вторая половина-листья или null
+            ind =  2 * i + 1;         // index of left child
+            if (this.HeapArray[2 * i +2] > this.HeapArray[ind])
+                ind = 2 * i + 2;     // index of right child
+
+            if (this.HeapArray[i] >= this.HeapArray[ind])
                 break;
-            }
-        }
 
-        // лист или нет
-        if (index >= b.length/2 && index <b.length) {
-            b[index] = VALUE_NONE;
-            this.count_nodes--;
-            return RebalanceTreeArray (b);
+            int tmp = this.HeapArray[i];
+            this.HeapArray[i] = this.HeapArray[ind];
+            this.HeapArray[ind] = tmp;
+            i = ind;
         }
-        // Два потомка
-        if (b[index * 2 + 1] != VALUE_NONE && b[index * 2 + 2] != VALUE_NONE) {
-            int max_left_index = IndexMaxofLeftBranch (b, index * 2 + 1); //самый правый-это макc из левого
-
-            b[index] = b[max_left_index];
-            b[max_left_index] = VALUE_NONE;
-            this.count_nodes--;
-            return RebalanceTreeArray (b);
-        }
-// только левый потомок
-        int next_i = -1;
-        if (b[index * 2 + 2] == VALUE_NONE) {
-            next_i = index * 2 + 1;
-        }
-// только правый потомок
-        if (b[index * 2 + 1] == VALUE_NONE) {
-            next_i = index * 2 + 2;
-        }
-// меняем массив - поднятие потомков
-        b[index] = b[next_i];
-        b[next_i] = VALUE_NONE;
-        for (int i = next_i; i < b.length; i = i * 2 + 1) {
-            if ((i * 2 + 2) < b.length) {
-                b[i] = b[i * 2 + 1];
-                b[i + 1] = b[i * 2 + 2];
-            }
-            count_nodes--;
-        }
-        return RebalanceTreeArray (b);
     }
 
-//------------------------------------------------------------
-// Вспомогательная функция при удалении узла с двумя потомками - поиск узла для замены
-    
-    public int IndexMaxofLeftBranch (int b [], int left_index)
+    void goUp () {      // от листьев к корню
+        int i = this.node_count - 1;
+        int ind = 0;
+        while (i > 0) {
+            ind = (i - 1) / 2; // индекс родителя
+            if (this.HeapArray[i] < this.HeapArray[ind])
+                break;
+            int tmp =  this.HeapArray[i]; // меняем местами с большим - двигаем вниз
+            this.HeapArray[i] = this.HeapArray[ind];
+            this.HeapArray[ind] = tmp;
+            i = ind;
+        }
+    }
+
+    public boolean Add(int key)
     {
-        int index_left_max = 0;
-
-        for (int i = left_index; i < b.length; i = i*2 + 2) {
-            index_left_max = i; // Правые
+        // heap fill all
+        if (this.node_count == this.HeapArray.length) {
+            return false;
         }
-        return index_left_max;
+        // Add key and rebuild
+        this.HeapArray[this.node_count] = key;// добавили в конец
+        this.node_count = this.node_count +1;
+        this.goUp(); // Двигаем вверх - меняем местами с меньшим
+        return true;
     }
+//===============================================================================
+// Задание 7 задача 4*
+// Добавьте метод поиска максимального элемента в заданном диапазоне значений
+// Куча представлена в виде массива,
+// в куче положительные неповторяющиеся числа
+ // Числа расположены в неопределенном порядке в заданном диапазоне, не факт,
+ // что первое больше второго или последнего  - если это не корень (нулевой элемент)
 
-    //---------------------------------------------------------------
-    int [] RebalanceTreeArray (int[] a ) {
-        if (this.count_nodes > (int)a.length/2)
-            return a;
+ int findMax (int a, int b)
+ {
+        int x = -1, y = -1;
+        for (int i = 0; i < this.HeapArray.length; i ++) {
 
-        int c[] = new int[this.count_nodes];
-        int j = 0;
-        for (int i = 0; i < a.length; i++) {
-            if (a[i] != VALUE_NONE ) { //&& j < c.length
-                c[j] = a[i];
-                j++;
-                if (j >= c.length)
-                    break;
+            if (this.HeapArray[i] == a) {
+                x = i;
             }
+            if (this.HeapArray[i] == b) {
+                y = i;
+            }
+
+            if (x >= 0 && y >= 0)
+                break;
         }
-        return GenerateBBSTArray(c);
+
+        int i;
+        if (x > y) {
+            i = y;
+            y = x;
+            x = i;
+        }
+
+        int max = x;
+        for (i = x; i <= y; i++) {
+            if (i == x)
+                max = this.HeapArray[i];
+
+            if (this.HeapArray[i] > max)
+                max = this.HeapArray[i];
+        }
+        return max;
+ }
+
+// Задание 7 задача 5*
+//-----------------Найти значение меньще заданного Х--------------------------------
+// Точно равное заданное можно помощью хэш таблицы, которую можно слделать на основе массива кучи
+// Меньше или больше - придется искать.
+// Если не важно на сколько отличается искомое число от заданного Х после его нахождения можно сразу вернуть
+// искомое число и прекратить поиск. Если необходимо вернуть наиболее приближенное к искомому
+// - алгоритм может иметь сложность O(N) и не быть оптимальным.
+
+    int MenosX (int X)
+    {
+        if (this.HeapArray[0] < X)
+            return this.HeapArray[0];
+        int node = this.HeapArray[0];
+        return FindMenosX (this.HeapArray, X,0);
     }
 
+    int FindMenosX ( int []heap_arr,int X, int nod_index )
+    {
+        int l_index = nod_index * 2 + 1;
+        int r_index = nod_index * 2 + 2;
+        int ret1 = -1, ret2 = -1;
+
+        if (r_index >= heap_arr.length)
+            return -1;;
+
+        if (X > heap_arr[l_index] && X > heap_arr[r_index]) {
+            int ret = Max(heap_arr[l_index], heap_arr[r_index]);
+            return ret;
+        }
+
+       if (X <= heap_arr[l_index]) {
+           ret1 = FindMenosX(heap_arr, X, l_index);
+       }
+        if (X <= heap_arr[r_index] ) {
+            ret2 = FindMenosX(heap_arr, X, r_index);
+        }
+
+        if (X > heap_arr[l_index])
+            ret1 = (heap_arr[l_index]);
+
+        if (X > heap_arr[r_index])
+            ret2 = heap_arr[r_index];
+
+        return Max(ret1, ret2);
+    }
+
+
+    int Max (int a, int b) {
+
+        if (a >= b)return a;
+        return b;
+    }
+
+
+
+
+
+
+
+    public static void main(String[] args) {
+       Heap H = new Heap();
+       int [] Arr = {11,9,4,7,8,3,1,2,5,6};
+       H.MakeHeap(Arr, 3);
+        int m = H.FindMenosX(H.HeapArray, 11,0);
+
+        int m2 = H.findMax(3,6);
+        System.out.printf("menos X =  %d   %d \n", m, m2);
+        }
 }
-
-
-
-
-
