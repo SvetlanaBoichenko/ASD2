@@ -177,15 +177,6 @@ public class Heap
 
 
 
-
-
-
-    public static void main(String[] args) {
-       Heap H = new Heap();
-       int [] Arr = {11,9,4,7,8,3,1,2,5,6};
-       H.MakeHeap(Arr, 3);
-        int m = H.FindMenosX(H.HeapArray, 11,0);
-
         int m2 = H.findMax(3,6);
         System.out.printf("menos X =  %d   %d \n", m, m2);
         }
