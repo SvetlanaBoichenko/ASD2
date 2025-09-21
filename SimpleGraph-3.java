@@ -89,6 +89,32 @@ class SimpleGraphTest {
         sg.RemoveEdge (0, 1);
         assertTrue (sg.IsEdge(0,1) == false);
 
-    }
+    } 
+
+     @org.junit.jupiter.api.Test
+            void DepthFirstSearch_test () {
+                sg.AddVertex(1);
+                sg.AddVertex(2);
+                sg.AddVertex(3);
+                sg.AddVertex(4);
+                sg.AddVertex(5);
+                sg.AddVertex(6);
+
+                sg.AddEdge(1, 2);
+                sg.AddEdge(2, 4);
+                sg.AddEdge(4, 5);
+
+                ArrayList<Vertex> l = sg.DepthFirstSearch(5, 1);
+                assertEquals(l.get(0).Value, 6);
+                assertEquals(l.get(1).Value, 5);
+                assertEquals(l.get(2).Value, 3);
+                assertEquals(l.get(3).Value, 2);
+
+                ArrayList<Vertex> l1  = sg.DepthFirstSearch(1, 4);
+            assertEquals(l1.get(0).Value, 2);
+            assertEquals(l1.get(1).Value, 3);
+            assertEquals(l1.get(2).Value, 5);
+     }
 
 }
+
