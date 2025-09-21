@@ -1,16 +1,31 @@
+//==================================================================
+// Задание 8 задача 2*
+//Реализуйте направленный граф, представленный матрицей смежности,
+// и добавьте метод проверки.
+//
+// Для реализации направленного графа необходимо знать направления ребра между вершинами
+// Например (1,2) от вершины с индекосм 1 к вершине с индексом 2 (из матрицы)
+// Для добаления ребра реализована ф-ция AddDirectEdgeint v1, int v2)
+// Строка 66
+//
+//Проверьте, будет ли он циклическим.
+// Функция выявления цикличности isHaveLoops ()
+// Строка 96
+//=====================================================================
 
-import java.util.*;
+//КОнстанты для обозначения состояния вершин
+   static final int IN_STACK = 1;
+    static final int VISITED = 2;
+    static final int NO_VISITED = 0;
 
 class Vertex
 {
     public int Value;
-    public boolean Hit;
     int visited;
     public Vertex(int val)
     {
         Value = val;
-        boolean Hit = false ;
-        visited  = 0;
+        visited  = NO_VISITED;
     }
 }
 
@@ -46,18 +61,8 @@ public class SimpleGraph {
             this.m_adjacency[v][i] = 0;
         }
     }
-
-
-
-    void deleteHits () {
-        for (int i = 0; i < this.vertex.length; i++) {
-            if (vertex[i] != null) {
-                vertex[i].Hit = false;
-            }
-        }
-    }
-
-
+//====================================================================
+    
     public void AddDirectEdge(int v1, int v2) {
         if (v1 < this.vertex.length && v2 < this.vertex.length) {
             this.m_adjacency[v1][v2] = 1;
@@ -81,11 +86,13 @@ public class SimpleGraph {
         return -1;// Не найдены вообще смежные или уже с ними сталкивались и они обработаны
     }
 
-
-    static final int IN_STACK = 1;
-    static final int VISITED = 2;
-    static final int NO_VISITED = 0;
-
+//===============================================================
+//Функция выявления цикличности. Для реализации воспользовалась советами 
+// из рекомендаций. 
+//Сложность O(V)пространственная, где V - число вершин
+// O(V + E) временная. Е - число ребер
+//===============================================================
+    
     public boolean isHaveLoops () {
         int VFrom = 0;
         int VTo = max_vertex-1;
@@ -123,11 +130,5 @@ public class SimpleGraph {
     }
 
 
+} 
 
-    public static void main(String[] args) {
-
-        System.out.printf("Hello and welcome!");
-
-
-    }
-}
