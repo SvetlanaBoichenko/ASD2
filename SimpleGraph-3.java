@@ -102,7 +102,12 @@ class SimpleGraphTest {
 
                 sg.AddEdge(1, 2);
                 sg.AddEdge(2, 4);
-                sg.AddEdge(4, 5);
+                sg.AddEdge(4, 5); 
+                sg.AddEdge(0, 2);
+
+                ArrayList<Vertex> l2 = sg.DepthFirstSearch(0, 3);
+                assertEquals(l2.size(), 0);
+
 
                 ArrayList<Vertex> l = sg.DepthFirstSearch(5, 1);
                 assertEquals(l.get(0).Value, 6);
@@ -117,4 +122,5 @@ class SimpleGraphTest {
      }
 
 }
+
 
