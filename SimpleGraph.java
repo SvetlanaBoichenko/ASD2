@@ -87,7 +87,7 @@ public class SimpleGraph
    public ArrayList<Vertex> DepthFirstSearch(int VFrom, int VTo)
     {
        ArrayList<Vertex> retList = new ArrayList<>();
-       if (VFrom > this.max_vertex || VFrom <= 0)
+       if (VFrom >= this.max_vertex || VFrom < 0 || VTo >= this.max_vertex || VTo < 0)
        return retList;
 
        if (VFrom == VTo) {
