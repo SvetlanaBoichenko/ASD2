@@ -113,8 +113,13 @@ public class SimpleGraph
 
            X = this.look_adj_vetrex (X); //fing agi Х vertex
            if (X == -1) {
-               v_stack.pop();         //no aji vertex
-               X = v_stack.peek();    // send to revise
+              
+               v_stack.pop(); //no aji vertex
+               
+               if (v_stack.isEmpty())
+                   return retList;
+              
+               X = v_stack.peek();// send to revise
            } 
            else {
                v_stack.push(X);     // new to stack
