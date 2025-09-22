@@ -94,17 +94,13 @@ public class SimpleGraph {
 //===============================================================
     
     public boolean isHaveLoops () {
-        int VFrom = 0;
-        int VTo = max_vertex-1;
-
-        if (VFrom == VTo || max_vertex == 2) { // не надо никуда ходить
+      
+        if ( max_vertex == 2) { // не надо никуда ходить
             return false;                       // нет петель
         }
 
-        Vertex v1 = vertex[VFrom];          //по номерам позиицй
-        Vertex v2 = vertex[VTo];
 
-        int X = VFrom;                      // Временная переменная
+        int X = 0;                      // Временная переменная
 
         Stack<Integer> v_stack = new Stack<>(); // создаем стек
         v_stack.push(X);                        //Помещаем первую в стек
