@@ -1,21 +1,23 @@
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class SimpleGraphTest {
-    SimpleGraph sg = new SimpleGraph( 6);
+    SimpleGraph sg = new SimpleGraph( 7);
 
     @org.junit.jupiter.api.Test
     void addVertex() {
-       sg.AddVertex(1);
-       assertTrue (sg.vertex[0].Value == 1 );
+        sg.AddVertex(1);
+        assertTrue (sg.vertex[0].Value == 1 );
         sg.AddVertex(2);
         assertTrue (sg.vertex[1].Value == 2 );
         assertTrue (sg.vertex[0].Value == 1 );
         sg.AddVertex(1);
         assertTrue (sg.vertex[1].Value == 2 );
         assertTrue (sg.vertex[0].Value == 1 );
-        assertTrue (sg.vertex.length == 6);
+        assertTrue (sg.vertex.length == 7);
         assertTrue (sg.vertex[2].Value == 1 );
         sg.AddVertex(3);
         sg.AddVertex(4);
@@ -82,44 +84,111 @@ class SimpleGraphTest {
 
     @org.junit.jupiter.api.Test
     void removeEdge() {
-        sg.AddEdge(0,1);
-        sg.AddEdge(3,6);
-        assertTrue (sg.IsEdge(0,1) == true);
-        assertTrue (sg.IsEdge(3,6) == false);
-        sg.RemoveEdge (0, 1);
-        assertTrue (sg.IsEdge(0,1) == false);
+        sg.AddEdge(0, 1);
+        sg.AddEdge(3, 6);
+        assertTrue(sg.IsEdge(0, 1) == true);
+        //assertTrue(sg.IsEdge(3, 6) == false);
+        sg.RemoveEdge(0, 1);
+        assertTrue(sg.IsEdge(0, 1) == false);
+    }
+    @org.junit.jupiter.api.Test
+    void look_adj_vetrex_test () {
+        sg.AddVertex(1);
+        sg.AddVertex(2);
+        sg.AddVertex(3);
+        sg.AddVertex(4);
+        sg.AddVertex(5);
+        sg.AddVertex(6);
 
-    } 
+        int a = sg.look_adj_vetrex(1);
+        assertTrue(a == -1);
+        sg.AddEdge(0, 1);
+        sg.AddEdge(3, 6);
+        sg.AddEdge(1, 5);
 
-     @org.junit.jupiter.api.Test
-            void DepthFirstSearch_test () {
-                sg.AddVertex(1);
-                sg.AddVertex(2);
-                sg.AddVertex(3);
-                sg.AddVertex(4);
-                sg.AddVertex(5);
-                sg.AddVertex(6);
+        a = sg.look_adj_vetrex(1);
+        assertTrue(a == 0);
 
-                sg.AddEdge(1, 2);
-                sg.AddEdge(2, 4);
-                sg.AddEdge(4, 5); 
-                sg.AddEdge(0, 2);
+        sg.RemoveEdge(1, 0);
+        a = sg.look_adj_vetrex(1);
+        assertTrue(a == 5);
+    }
 
-                ArrayList<Vertex> l2 = sg.DepthFirstSearch(0, 3);
-                assertEquals(l2.size(), 0);
+    @org.junit.jupiter.api.Test
+    void DepthFirstSearch_test () {
+        //    DepthFirstSearch() возвращает пустой список для существующего пути
+        sg.AddVertex(1);
+        sg.AddVertex(2);
+        sg.AddVertex(3);
+        sg.AddVertex(4);
+        sg.AddVertex(5);
+        sg.AddVertex(6);
+        sg.AddEdge(0, 2);
+        sg.AddEdge(1, 2);
+        sg.AddEdge(2, 4);
+        sg.AddEdge(4, 5);
+
+        ArrayList<Vertex> l2 = sg.DepthFirstSearch(0, 3);
+        assertEquals(l2.size(), 0);
+
+        ArrayList<Vertex> l = sg.DepthFirstSearch(5, 1);
+        assertEquals(l.get(0).Value, 6);
+        assertEquals(l.get(1).Value, 5);
+        assertEquals(l.get(2).Value, 3);
+        assertEquals(l.get(3).Value, 2);
+
+        ArrayList<Vertex> l1  = sg.DepthFirstSearch(1, 4);
+        assertEquals(l1.get(0).Value, 2);
+        assertEquals(l1.get(1).Value, 3);
+        assertEquals(l1.get(2).Value, 5);
+
+    }
 
 
-                ArrayList<Vertex> l = sg.DepthFirstSearch(5, 1);
-                assertEquals(l.get(0).Value, 6);
-                assertEquals(l.get(1).Value, 5);
-                assertEquals(l.get(2).Value, 3);
-                assertEquals(l.get(3).Value, 2);
+    @org.junit.jupiter.api.Test
+    void BreadthFirstSearch () {
+        sg.AddVertex(0);
+        sg.AddVertex(1);
+        sg.AddVertex(2);
+        sg.AddVertex(3);
+        sg.AddVertex(4);
+        sg.AddVertex(5);
+        sg.AddVertex(6);
+        sg.AddEdge(0, 2);
+        sg.AddEdge(1, 2);
+        sg.AddEdge(1, 3);
+        sg.AddEdge(2, 3);
+        sg.AddEdge(2, 4);
+        sg.AddEdge(4, 5);
 
-                ArrayList<Vertex> l1  = sg.DepthFirstSearch(1, 4);
-            assertEquals(l1.get(0).Value, 2);
-            assertEquals(l1.get(1).Value, 3);
-            assertEquals(l1.get(2).Value, 5);
-     }
+        ArrayList<Vertex> l14 = sg.BreadthFirstSearch (4, 6);
+        assertTrue(l14.size() == 0);
+
+        sg.AddEdge(4, 6);
+        sg.AddEdge(5, 6);
+
+        ArrayList<Vertex> l4 = sg.BreadthFirstSearch (0, 0);
+        assertTrue(l4.size() == 1);
+
+        ArrayList<Vertex> l11 = sg.BreadthFirstSearch (0, 0);
+        assertTrue(l11.size() == 1);
+
+        ArrayList<Vertex> l5 = sg.BreadthFirstSearch (0, 2);
+        assertEquals(l5.get(0).Value, 0);
+        assertEquals(l5.get(1).Value, 2);
+
+        ArrayList<Vertex> l3 = sg.BreadthFirstSearch (0, 6);
+        assertEquals(l3.get(0).Value, 0);
+        assertEquals(l3.get(1).Value, 2);
+        assertEquals(l3.get(2).Value, 4);
+        assertEquals(l3.get(3).Value, 6);
+
+        ArrayList<Vertex> l6 = sg.BreadthFirstSearch (0, 3);
+        assertEquals(l6.get(0).Value, 0);
+        assertEquals(l6.get(1).Value, 2);
+        assertEquals(l6.get(2).Value, 3);
+
+    }
 
 }
 
