@@ -1,3 +1,14 @@
+//=======================================================================================
+// задание 9 
+// Задача2.*   метод, который сбалансирует чётное двоичное дерево.
+// строка 39
+//
+//3.* метод, который для любого заданного подузла текущего дерева
+//    определит общее количество чётных поддеревьев.
+// строка 
+//=========================================================================================
+
+
 import java.util.*;
 
     public class SimpleTreeNode<T>
@@ -20,13 +31,17 @@ import java.util.*;
         public SimpleTree(SimpleTreeNode<T> root) {
             Root = root;
         }
-//====================================================================
-//не обязательно число детей у узлов 2. Поэтому обход дерева обычный.
-// - GetAllNodes(), как любого дерева
-// Затем- сортировка
-// Затем Алгоритм балансировки: левую часть -рекурсивно для левого поддерва, правую- для правого
+//================================================================================
+// не обязательно число детей у узлов 2. Поэтому обход дерева обычный.
+// - GetAllNodes(), как любого дерева. Создание массива значений узлов и
+// - его сортировка
+// Затем созд дерева из массива: левая часть -рекурсивно для левого поддерва, правая- для правого
+// функция makeBEvenTree         строка 58
+// сложность O(N)
+//==================================================================================
 
-        public  SimpleTreeNode<T>  balanceChetTree() {
+        public  SimpleTreeNode<T>  balanceChetTree() 
+        {
             List<SimpleTreeNode<T>> chNodeList = this.GetAllNodes();
             int[] valArray = new int [chNodeList.size()];
 
@@ -63,11 +78,35 @@ import java.util.*;
             return new_nod;
         }
 
- //=================================================================
 
-        public int countEvenNodes(SimpleTreeNode<T> firstNode) {
-            List<SimpleTreeNode<T>> resList;// = new LinkedList<SimpleTreeNode<T>>();
+//--------------------------------------------------------------------
+        public List<SimpleTreeNode<T>> childSubList(SimpleTreeNode<T> firstNode) 
+        {
+            List<SimpleTreeNode<T>> resList = new LinkedList<SimpleTreeNode<T>>();
 
+            if (firstNode == null || firstNode.Children == null)
+                return resList;
+
+            for (int i = 0; i < firstNode.Children.size(); i++) {
+                SimpleTreeNode<T> curnode = firstNode.Children.get(i);
+                if (curnode.Children != null)
+                    resList.addAll (childSubList(curnode));
+
+                resList.addLast(curnode);
+            }
+            return resList;
+        }        
+        
+//=================================================================
+//   Использовала функцию получения списка подузлов    
+//   Вероятно не самый оптимальный метод childSubList(curnode), строка 80
+//   тк этот метод создает списки      
+//===============================================================
+        
+        public int countEvenNodes(SimpleTreeNode<T> firstNode) 
+        {
+            List<SimpleTreeNode<T>> resList;
+            
             if (firstNode == null || firstNode.Children == null)
                 return 1;
             int chetCount  = 0;
@@ -88,7 +127,8 @@ import java.util.*;
         }
 //----------------------------------------------------------------------------------------
 
-        public List<SimpleTreeNode<T>> GetAllNodes() {
+        public List<SimpleTreeNode<T>> GetAllNodes() 
+        {
             List<SimpleTreeNode<T>> nodeList = new LinkedList<SimpleTreeNode<T>>();
             if (this.Root == null)
                 return nodeList;
@@ -100,22 +140,7 @@ import java.util.*;
             return nodeList;
         }
 
-        //--------------------------------------------
-        public List<SimpleTreeNode<T>> childSubList(SimpleTreeNode<T> firstNode) {
-            List<SimpleTreeNode<T>> resList = new LinkedList<SimpleTreeNode<T>>();
 
-            if (firstNode == null || firstNode.Children == null)
-                return resList;
-
-            for (int i = 0; i < firstNode.Children.size(); i++) {
-                SimpleTreeNode<T> curnode = firstNode.Children.get(i);
-                if (curnode.Children != null)
-                    resList.addAll(childSubList(curnode));
-
-                resList.addLast(curnode);
-            }
-            return resList;
-        }
 
 //-------------------------------------------------------------------------------------------
 public void AddChild (SimpleTreeNode<T> ParentNode, SimpleTreeNode<T> NewChild)
@@ -129,35 +154,7 @@ public void AddChild (SimpleTreeNode<T> ParentNode, SimpleTreeNode<T> NewChild)
     ParentNode.Children.add(NewChild);
     NewChild.Parent = ParentNode;
 }
-//-------------------------------------------------------------------------------------------
-        public static void main(String[] args) {
-            System.out.printf("Hello and welcome!");
-            SimpleTreeNode r = new SimpleTreeNode(0, null);
-            SimpleTreeNode ch1 = new SimpleTreeNode(1, r);
-            SimpleTreeNode ch2 = new SimpleTreeNode(2, r);
-            SimpleTreeNode ch3 = new SimpleTreeNode(3, r);
-            SimpleTreeNode ch4 = new SimpleTreeNode(4, r);
-            SimpleTreeNode ch5 = new SimpleTreeNode(5, r);
-            SimpleTreeNode ch6 = new SimpleTreeNode(6, r);
-            SimpleTreeNode ch7 = new SimpleTreeNode(7, r);
-              SimpleTreeNode ch8 = new SimpleTreeNode(8, r);
 
-            SimpleTree<Integer> st = new SimpleTree<>(r);
-            st.AddChild(r, ch1);
-            st.AddChild(r, ch2);
-            st.AddChild(r, ch3);
-            st.AddChild(ch1, ch4);
-            st.AddChild(ch2, ch5);
-            st.AddChild(ch2, ch6);
-            st.AddChild(ch2, ch7);
-
-
-            SimpleTreeNode ret = st.balanceChetTree();
-              st.AddChild(ch2, ch8);
-
-            int s = st.countEvenNodes(st.Root);
-
-
-        }
-    }
-        //---------------------------------------------------------------------------
+    
+}
+//---------------------------------------------------------------------------
