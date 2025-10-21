@@ -188,8 +188,86 @@ class SimpleGraphTest {
         assertEquals(l6.get(1).Value, 2);
         assertEquals(l6.get(2).Value, 3);
 
+    } 
+
+    @org.junit.jupiter.api.Test
+    void WeakVertices() {
+        sg.AddVertex(0);
+        sg.AddVertex(1);
+        sg.AddVertex(2);
+        sg.AddVertex(3);
+        sg.AddVertex(4);
+        sg.AddVertex(5);
+        sg.AddVertex(6);
+
+        ArrayList<Vertex> b1 = sg.WeakVertices();
+        assertTrue (b1.size() == 7);
+
+        sg.AddEdge(0, 1);
+        sg.AddEdge(1, 2);
+        sg.AddEdge(4, 5);
+        ArrayList<Vertex> b = sg.WeakVertices();
+        assertTrue (b.size() == 7);
+
+        sg.AddEdge(0, 2);
+        sg.searchTriangle(0,1, 6);
+
+        ArrayList<Vertex> a = sg.WeakVertices();
+        assertTrue (a.size() == 4);
+        assertTrue (a.get(0).Value == 3);
+        assertTrue (a.get(1).Value == 4);
+        assertTrue (a.get(2).Value == 5);
+        assertTrue (a.get(3).Value == 6);
+
+        sg.AddEdge(2, 3);
+        sg.AddEdge(3, 5);
+        sg.AddEdge(5, 2);
+        sg.AddEdge(4, 5);
+        sg.AddEdge(0, 4);
+        ArrayList<Vertex> a1 = sg.WeakVertices();
+        assertTrue (a1.size() == 2);
+        assertTrue (a1.get(0).Value == 4);
+        assertTrue (a1.get(1).Value == 6);
+        sg.AddEdge(0, 1);
+        sg.AddEdge(1, 2);
+        sg.AddEdge(0, 2);
+        sg.AddEdge(4, 5);
+
     }
 
+    @org.junit.jupiter.api.Test
+    void TriangleVertices() {
+        sg.AddVertex(0);
+        sg.AddVertex(1);
+        sg.AddVertex(2);
+        sg.AddVertex(3);
+        sg.AddVertex(4);
+        sg.AddVertex(5);
+        sg.AddVertex(6);
+
+        sg.AddEdge(0, 2);
+         int a = sg.TriangleVertices();
+        assertTrue (a == 0);
+
+        sg.AddEdge(2, 3);
+        sg.AddEdge(3, 5);
+        sg.AddEdge(5, 2);
+        sg.AddEdge(4, 5);
+        sg.AddEdge(0, 4);
+
+        a = sg.TriangleVertices();
+        assertTrue (a == 1);
+
+        sg.AddEdge(5, 0);
+        a = sg.TriangleVertices();
+        assertTrue (a == 3);
+
+        sg.AddEdge(3, 0);
+        a = sg.TriangleVertices();
+        assertTrue (a == 5);
+
+
 }
+
 
 
