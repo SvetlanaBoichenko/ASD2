@@ -5,11 +5,14 @@ class Vertex
     public int Value;
     public boolean Hit;
     public int vertPrevVisit;
+    int inTriengle;
     public Vertex(int val)
     {
         Value = val;
         Hit = false;
         vertPrevVisit = -1;
+        inTriengle = 0;
+
     }
 }
 
