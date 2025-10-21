@@ -194,6 +194,50 @@ public class SimpleGraph {
             retList.add(v);
         }
         return retList;
+    } 
+
+//-------------------------------------------------------------------------------
+// Are these  3 is tirangle
+    int searchTriangle (int i, int j, int arrayVertexLen)
+     {
+        int countInterimTriangles = 0;
+
+         for (int k = j+1; k < arrayVertexLen; k++  ) {
+             if (IsEdge(i, j) && IsEdge(j, k) && IsEdge(i, k)) {
+                 vertex[i].inTriengle = vertex[i].inTriengle + 1;
+                 vertex[j].inTriengle = vertex[j].inTriengle + 1;
+                 vertex[k].inTriengle = vertex[k].inTriengle + 1;
+                 countInterimTriangles++;
+             }
+         }
+         return countInterimTriangles;
+    }
+
+//-------------------------------------------------------------
+    public ArrayList<Vertex> WeakVertices()
+    {
+        ArrayList<Vertex> retTList  = new ArrayList<>();
+        int len = this.vertex.length;
+
+        if (len < 3)
+            return retTList;
+
+        for (int i = 0; i < len; i++)  {
+            vertex[i].inTriengle = 0;
+        }
+
+        for (int i = 0; i < len - 2; i++)  {
+            for (int j = i + 1; j < len - 1; j++) {
+                searchTriangle(i, j, len);
+            }
+        }
+
+        for (int i = 0; i < len; i++) {
+            if (vertex[i].inTriengle == 0) {
+                retTList.add(vertex[i]);
+            }
+        }
+        return retTList;
     }
 
 
